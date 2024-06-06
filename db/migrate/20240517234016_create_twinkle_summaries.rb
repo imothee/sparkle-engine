@@ -8,6 +8,6 @@ class CreateTwinkleSummaries < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
-    add_index :twinkle_summaries, [:period, :start_date, :end_date]
+    add_index :twinkle_summaries, [:period, :start_date, :end_date], unique: true
   end
 end

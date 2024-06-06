@@ -6,20 +6,22 @@ module Twinkle
 
     validates :number, presence: true
     validates :build, presence: true
-    validates :description, presence: true
-    validates :binary_url, presence: true
-    validates :length, presence: true
-    validates :length, numericality: { only_integer: true, greater_than: 0 }
+    validates :description, presence: true, if: -> { published }
+    validates :binary_url, presence: true, if: -> { published }
+    validates :length, presence: true, if: -> { published }
+    validates :length, numericality: { only_integer: true, greater_than: 0 }, allow_blank: true
+
 
     # validates that the binary_url is a valid URL
     validate :binary_url_is_url
 
     # validates that one of the two signatures is present
-    validate :signature_present
+    validate :signature_present, if: -> { published }
 
     private 
 
     def binary_url_is_url
+      return true if binary_url.blank?
       begin
         uri = URI.parse(binary_url)
         raise URI::InvalidURIError unless uri.is_a?(URI::HTTP) && uri.host.present?

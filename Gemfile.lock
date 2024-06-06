@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    twinkle (0.1.0)
+    twinkle (0.1.1)
       rails (>= 7.0.0.0)
 
 GEM

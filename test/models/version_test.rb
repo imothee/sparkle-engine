@@ -1,14 +1,24 @@
 require "test_helper"
 
 class VersionTest < ActiveSupport::TestCase
-  test "versions require a version number, build, description, binary_url, and length" do
-    version = Twinkle::Version.new
+  test "versions require a version number, build, description, binary_url, and length when published" do
+    version = Twinkle::Version.new(published: true)
     assert_not version.save
     assert_equal ["can't be blank"], version.errors[:number]
     assert_equal ["can't be blank"], version.errors[:build]
     assert_equal ["can't be blank"], version.errors[:description]
-    assert_equal ["can't be blank", "is not a valid URL"], version.errors[:binary_url]
-    assert_equal ["can't be blank", "is not a number"], version.errors[:length]
+    assert_equal ["can't be blank"], version.errors[:binary_url]
+    assert_equal ["can't be blank"], version.errors[:length]
+  end
+
+  test "only requires a version number and build when not published" do
+    version = Twinkle::Version.new(published: false)
+    assert_not version.save
+    assert_equal ["can't be blank"], version.errors[:number]
+    assert_equal ["can't be blank"], version.errors[:build]
+    assert_equal [], version.errors[:description]
+    assert_equal [], version.errors[:binary_url]
+    assert_equal [], version.errors[:length]
   end
 
   test "versions require a valid URL for the binary_url" do
@@ -24,7 +34,7 @@ class VersionTest < ActiveSupport::TestCase
   end
 
   test "versions require at least one of the two signatures" do
-    version = Twinkle::Version.new
+    version = Twinkle::Version.new(published: true)
     assert_not version.save
     assert_equal ["At least one of the two signatures must be present"], version.errors[:base]
   end

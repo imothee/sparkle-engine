@@ -12,6 +12,6 @@ class CreateTwinkleVersions < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
-    add_index :twinkle_versions, :build
+    add_index :twinkle_versions, [:twinkle_app_id, :build], unique: true
   end
 end

@@ -4,7 +4,7 @@ module Summarize
   included do
     def summarize_events(period, start_date, end_date)
       # Find or create a summary for the week
-      summary = Twinkle::Summary.with_datapoints.find_or_create_by(app: self, period: period, start_date: start_date, end_date: end_date)
+      summary = Twinkle::Summary.find_or_create_by(app: self, period: period, start_date: start_date, end_date: end_date)
       data_hash = get_data_hash(start_date, end_date)
       datapoints = get_datapoints(summary, data_hash)
       save_summary(datapoints)
@@ -17,7 +17,7 @@ module Summarize
       events.created_between(start_date, end_date).find_each do |event|
         data_hash['users']['sessions'] = (data_hash.dig('users', 'sessions') || 0) + 1
         Twinkle::Event.fields.each do |field|
-          data_hash[field][event[field]] = (data_hash.dig(field, event[field]) || 0) + 1
+          data_hash[field][event[field]] = (data_hash.dig(field, event[field]) || 0) + 1 if event[field].present?
         end
       end
       data_hash
