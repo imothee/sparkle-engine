@@ -8,6 +8,7 @@ Gem::Specification.new do |spec|
   spec.homepage    = "https://github.com/imothee/twinkle"
   spec.summary     = "Twinkle is a Rails engine for hosting appcast and collecting anonymous sparkle-project usage data."
   spec.description = "Twinkle is a Rails engine for hosting appcast and collecting anonymous sparkle-project usage data."
+  spec.licenses    = ['MIT']
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the "allowed_push_host"
   # to allow pushing to a single host or delete this section to allow pushing to any host.

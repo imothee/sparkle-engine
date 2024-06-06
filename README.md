@@ -46,9 +46,29 @@ mount Twinkle::Engine => "/"
 
 This will mount the appcast routes at /updates/:app.slug
 
+## Extending Twinkle Apps
+
+You can extend the Twinkle::App model by creating app/models/twinkle/app.rb
+
+```ruby
+class Twinkle::App < ApplicationRecord
+  include Twinkle::Concerns::Models::App
+  include Summarize
+
+  # Your custom app code and validations etc go here
+end
+```
+
 ## Contributing
 
 Pull requests welcome.
+
+## Building the gem
+
+```bash
+gem build
+gem push twinkle-x.x.x.gem
+```
 
 ## License
 
