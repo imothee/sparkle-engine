@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_30_023848) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_26_232135) do
   create_table "twinkle_apps", force: :cascade do |t|
     t.string "name"
     t.string "slug"
@@ -55,14 +55,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_023848) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["period", "start_date", "end_date"], name: "index_twinkle_summaries_on_period_and_start_date_and_end_date"
+    t.index ["period", "start_date", "end_date"], name: "index_twinkle_summaries_on_period_and_start_date_and_end_date", unique: true
     t.index ["twinkle_app_id"], name: "index_twinkle_summaries_on_twinkle_app_id"
   end
 
   create_table "twinkle_versions", force: :cascade do |t|
     t.integer "twinkle_app_id", null: false
     t.string "number"
-    t.string "build"
+    t.integer "build"
     t.string "description"
     t.string "binary_url"
     t.string "dsa_signature"
@@ -71,7 +71,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_023848) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "published", default: false, null: false
-    t.index ["build"], name: "index_twinkle_versions_on_build"
+    t.boolean "sparkle_two", default: true
+    t.string "link"
+    t.string "min_system_version"
+    t.string "max_system_version"
+    t.string "minimum_auto_update_version"
+    t.string "ignore_skipped_upgrades_below_version"
+    t.string "informational_update_below_version"
+    t.boolean "critical", default: false
+    t.string "critical_version"
+    t.integer "phased_rollout_interval"
+    t.string "channel"
+    t.string "release_notes_link"
+    t.string "full_release_notes_link"
+    t.datetime "published_at"
+    t.index ["twinkle_app_id", "build"], name: "index_twinkle_versions_on_twinkle_app_id_and_build", unique: true
     t.index ["twinkle_app_id", "published"], name: "index_twinkle_versions_on_twinkle_app_id_and_published"
     t.index ["twinkle_app_id"], name: "index_twinkle_versions_on_twinkle_app_id"
   end

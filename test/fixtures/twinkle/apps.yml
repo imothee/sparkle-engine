@@ -1,0 +1,4 @@
+tmpdisk:
+  name: TmpDisk
+  description: TmpDisk is a simple way to make an manage RamDisks on Mac
+  slug: tmpdisk

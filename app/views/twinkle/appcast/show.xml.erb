@@ -5,14 +5,54 @@
         <% @app.versions.each do |version| %>
             <item>
                 <title><%= version.number %></title>
-                <pubDate><%= version.inserted_at %></pubDate>
+                <pubDate><%= version.published_at.strftime("%a, %d %b %Y %H:%M:%S %z") %></pubDate>
                 <sparkle:version><%= version.build %></sparkle:version>
                 <sparkle:shortVersionString><%= version.number %></sparkle:shortVersionString>
+                <% if version.link.present? %>
+                <link><%= version.link %></link>
+                <% end %>
+                <% if version.channel.present? %>
+                <sparkle:channel><%= version.channel %></sparkle:channel>
+                <% end %>
+                <% if version.release_notes_link.present? %>
+                <sparkle:releaseNotesLink><%= version.release_notes_link %></sparkle:releaseNotesLink>
+                <% end %>
+                 <% if version.full_release_notes_link.present? %>
+                <sparkle:fullReleaseNotesLink><%= version.full_release_notes_link %></sparkle:fullReleaseNotesLink>
+                <% end %>
+                <% if version.min_system_version.present? %>
                 <sparkle:minimumSystemVersion><%= version.min_system_version %></sparkle:minimumSystemVersion>
+                <% end %>
+                <% if version.max_system_version.present? %>
+                <sparkle:maximumSystemVersion><%= version.max_system_version %></sparkle:maximumSystemVersion>
+                <% end %>
+                <% if version.minimum_auto_update_version.present? %>
+                <sparkle:minimumAutoupdateVersion><%= version.minimum_auto_update_version %></sparkle:minimumAutoupdateVersion>
+                <% end %>
+                <% if version.ignore_skipped_upgrades_below_version.present? %>
+                <sparkle:ignoreSkippedUpgradesBelowVersion><%= version.ignore_skipped_upgrades_below_version %></sparkle:ignoreSkippedUpgradesBelowVersion>
+                <% end %>
+                <% if version.informational_update_below_version.present? %>
+                <sparkle:informationalUpdate>
+                    <sparkle:belowVersion><%= version.informational_update_below_version %></sparkle:belowVersion>
+                </sparkle:informationalUpdate>
+                <% end %>
+                <% if version.critical %>
+                <% if version.sparkle_two %>
+                <sparkle:criticalUpdate<%= version.critical_version.present? ? raw(" sparkle:version=\"#{version.critical_version}\"") : "" %>></sparkle:criticalUpdate>
+                <% else %>
+                <sparkle:tags>
+                <sparkle:criticalUpdate></sparkle:criticalUpdate>
+                </sparkle:tags>
+                <% end %>
+                <% end %>
+                <% if version.phased_rollout_interval.present? %>
+                <sparkle:phasedRolloutInterval><%= version.phased_rollout_interval %></sparkle:phasedRolloutInterval>
+                <% end %>
                 <description>
                     <%= version.description %>
                 </description>
-                <enclosure url="<%= version.url %>" length="<%= version.length %>" type="application/octet-stream" sparkle:dsaSignature="<%= version.dsa_signature %>" sparkle:edSignature="<%= version.ed_signature %>"/>
+                <enclosure url="<%= version.binary_url %>" length="<%= version.length %>" type="application/octet-stream" sparkle:dsaSignature="<%= version.dsa_signature %>" sparkle:edSignature="<%= version.ed_signature %>"/>
             </item>
         <% end %>
     </channel>

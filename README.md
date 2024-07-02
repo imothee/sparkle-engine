@@ -63,6 +63,13 @@ end
 
 Pull requests welcome.
 
+## Testing
+
+```bash
+bin/rails db:test:prepare
+bin/test
+```
+
 ## Building the gem
 
 ```bash

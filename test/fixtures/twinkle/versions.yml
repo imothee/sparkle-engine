@@ -1,0 +1,47 @@
+latest:
+  app: tmpdisk
+  number: 1.0.2
+  build: 1001
+  description: First big release
+  binary_url: http://example.com/tmpdisk-1.0.0.dmg
+  dsa_signature: 1234567890
+  ed_signature: 0987654321
+  length: 123456
+  min_system_version: 10.6
+  minimum_auto_update_version: 1.0.0
+  ignore_skipped_upgrades_below_version: 1.0.1
+  informational_update_below_version: 1.0.1
+  phased_rollout_interval: 86400
+  release_notes_link: http://example.com/release_notes.html
+  full_release_notes_link: http://example.com/full_release_notes.html
+  published: true
+  published_at: 2024-06-26 00:00:00
+
+critical:
+  app: tmpdisk
+  number: 1.0.1
+  build: 1000
+  description: Critical bug fix
+  binary_url: http://example.com/tmpdisk-1.0.1.dmg
+  dsa_signature: 1234567890
+  ed_signature: 0987654321
+  length: 123456
+  min_system_version: 10.6
+  published: true
+  published_at: 2024-06-24 00:00:00
+  critical: true
+  sparkle_two: false
+
+oldest:
+  app: tmpdisk
+  number: 1.0.0
+  build: 999
+  description: Initial release
+  binary_url: http://example.com/tmpdisk-1.0.0.dmg
+  dsa_signature: 1234567890
+  ed_signature: 0987654321
+  length: 123456
+  min_system_version: 10.6
+  max_system_version: 10.8
+  published: true
+  published_at: 2024-06-22 00:00:00
