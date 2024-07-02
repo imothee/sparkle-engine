@@ -133,4 +133,20 @@ class AppcastControllerTest < ActionDispatch::IntegrationTest
     xml_doc  = Nokogiri::XML(@response.body)
     assert_equal twinkle_versions(:latest).full_release_notes_link, xml_doc.at_xpath('/rss/channel/item/sparkle:fullReleaseNotesLink').text
   end
+
+  test "should handle profile information" do
+    get '/twinkle/updates/tmpdisk.xml?osVersion=14.5.0&cputype=16777228&cpu64bit=1&cpusubtype=2&model=MacBookPro18,2&ncpu=10&lang=en-US&appName=TmpDisk&appVersion=1013&ramMB=32768'
+    assert_response :success
+    
+    event = Twinkle::Event.last
+    assert_equal '14.5.0', event.os_version
+    assert_equal "16777228", event.cputype
+    assert_equal true, event.cpu64bit
+    assert_equal "2", event.cpusubtype
+    assert_equal 'MacBookPro18,2', event.model
+    assert_equal 10, event.ncpu
+    assert_equal 'en-US', event.lang
+    assert_equal "32768", event.ram_mb
+    assert_equal '1013', event.version
+  end
 end

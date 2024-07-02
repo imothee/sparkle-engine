@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.3
+
+- Fixes miscased params and missing model param on event creation
+
 ## 0.2.2
 
 - Sets published_at automatically when published changes

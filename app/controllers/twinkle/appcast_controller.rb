@@ -1,7 +1,10 @@
 module Twinkle
   class AppcastController < ApplicationController
     def show
-      @app = App.includes(:versions).where(versions: { published: true }).find_by!(slug: params[:slug])
+      @app = App.includes(:versions)
+        .where(versions: { published: true })
+        .order('versions.build DESC')
+        .find_by!(slug: params[:slug])
       Event.create(app: @app, **event_params)
       render layout: false, formats: :xml
     end
@@ -18,7 +21,8 @@ module Twinkle
         :cpusubtype,
         :ramMB,
         :osVersion,
-        :lang
+        :lang,
+        :model
       )
     end
   end
