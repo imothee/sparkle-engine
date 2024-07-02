@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.2.0
+## 0.2.2
+
+- Sets published_at automatically when published changes
+- Fixes showing unpublished versions in appcast
+
+## 0.2.1
 
 - Changes build to an integer so ordering works properly on every database
 - Adds a lot of Sparkle 2.0 fields to the model

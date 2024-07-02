@@ -68,4 +68,33 @@ class VersionTest < ActiveSupport::TestCase
     assert_not version.save
     assert_equal [], version.errors[:full_release_notes_link]
   end
+
+  test "published at should be set when a version is published" do
+    version = twinkle_versions(:unpublished)
+    assert_nil version.published_at
+    version.published = true
+    version.save
+    assert_not_nil version.published_at
+  end
+
+  test "published at should not be set when a version is unpublished" do
+    version = twinkle_versions(:latest)
+    assert_not_nil version.published_at
+    version.published = false
+    version.save
+    assert_nil version.published_at
+  end
+
+  test "published at should not change when re-saving a published version" do
+    version = twinkle_versions(:latest)
+    published_at = version.published_at
+    version.save
+    assert_equal published_at, version.published_at
+  end
+
+  test "phased rollout interval must be a positive integer" do
+    version = Twinkle::Version.new(phased_rollout_interval: -1)
+    assert_not version.save
+    assert_equal ["must be greater than 0"], version.errors[:phased_rollout_interval]
+  end
 end

@@ -4,6 +4,10 @@ module Twinkle
   class Version < ApplicationRecord
     belongs_to :app, foreign_key: 'twinkle_app_id', class_name: 'Twinkle::App'
 
+    scope :published, -> { where(published: true) }
+
+    before_save :set_published_at
+
     validates :number, presence: true
     validates :build, numericality: { only_integer: true, greater_than: 0 }
     validates :description, presence: true, if: -> { published }
@@ -47,12 +51,19 @@ module Twinkle
       end
     end
 
-    private
     def is_url?(url)
       uri = URI.parse(url)
       uri.is_a?(URI::HTTP) && uri.host.present?
     rescue URI::InvalidURIError
       false
+    end
+
+    def set_published_at
+      if published && published_at.nil?
+        self.published_at = Time.now
+      elsif !published && published_at.present?
+        self.published_at = nil
+      end
     end
   end
 end

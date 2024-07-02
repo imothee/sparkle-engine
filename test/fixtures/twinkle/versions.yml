@@ -45,3 +45,15 @@ oldest:
   max_system_version: 10.8
   published: true
   published_at: 2024-06-22 00:00:00
+
+unpublished:
+  app: tmpdisk
+  number: 1.0.3
+  build: 1002
+  description: Unpublished release
+  binary_url: http://example.com/tmpdisk-1.0.3.dmg
+  dsa_signature: 1234567890
+  ed_signature: 0987654321
+  length: 123456
+  min_system_version: 10.6
+  published: false
