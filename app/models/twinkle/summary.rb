@@ -9,7 +9,7 @@ module Twinkle
     scope :since, ->(date) { where('twinkle_summaries.start_date >= ?', date).order('twinkle_summaries.start_date asc') }
     scope :week_of, -> (start_date, end_date) { where(period: :week).where("start_date >= ? AND end_date <= ?", start_date, end_date) }
 
-    enum period: { week: 0, fortnight: 1, month: 2 }
+    enum :period, { week: 0, fortnight: 1, month: 2 }
 
     def hash_datapoints
       data = Event.fields.map { |name| [name, {}] }.append(['users', {}]).to_h

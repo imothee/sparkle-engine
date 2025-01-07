@@ -9,7 +9,7 @@ gem "puma"
 gem "sprockets-rails"
 
 platforms :ruby do
-  gem "sqlite3", "~> 1.4"
+  gem "sqlite3", "~> 2.5"
 end
 
 # Start debugger with binding.b [https://github.com/ruby/debug]

@@ -11,3 +11,9 @@
 
 # Built gems
 *.gem
+
+# Devbox
+.devbox
+
+# IDE
+.idea

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.0
+
+- Adds support for Rails 8
+
 ## 0.2.3
 
 - Fixes miscased params and missing model param on event creation
