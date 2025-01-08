@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+- Fix index issue for summaries with multiple twinkle_apps
+
 ## 0.3.0
 
 - Adds support for Rails 8
